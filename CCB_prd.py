@@ -118,13 +118,13 @@ class CCB:
 
 
         unique_pairs_edited = self.perUniquepairsFormat(unique_pairs)
-        print("unique_pairs_edited is done", len(unique_pairs_edited))
+        #print("unique_pairs_edited done", len(unique_pairs_edited))
 
         vip_seqs = self.lookForVipSeq(result, unique_pairs_edited)
-        print("vip_seqs is done", len(vip_seqs))
+        #print("Checking peptide validity done", len(vip_seqs))
 
         res_list = self.unziping2(vip_seqs)
-        print("res_list is done", len(res_list))
+        print("Final list of valid peptide done", len(res_list))
 
         self.writeRes(res_list, genus_type, out_df_path, suffix)
 
@@ -139,30 +139,36 @@ class CCB:
         df = pd.DataFrame.from_dict(dict_out)
         df.to_csv(fileName)
 
-    def checkGenus(self, genus):
+    def checkGenus(self):
         isGenus = False
-        print("ich bin da")
         all_linkers = pd.read_csv(self.in_df_path)
-        try:
-            genus_df = all_linkers[all_linkers['Genus']==self.genus_type]
+
+        genus_df = all_linkers[all_linkers['Genus']==self.genus_type]
+        if(len(genus_df) >= 1):
+            print("Genus exists")
             isGenus = True
-        except e:
-            print("eshta" + e)
+        else: isGenus = False
         return isGenus
 
     def test_run(self):
         folderName = ""
         if(self.replacement is None): self.replacement = False
-        print("self.replacement: ", self.replacement)
-        if ((not self.replacement) and (self.genus_type is None) ): folderName = "no_rep_no_genus/"
-        elif((not self.replacement) and  (self.genus_type is not None)):
+        if(self.replacement == 1): self.replacement = True
+        if(self.replacement == 0): self.replacement = False
+        print("replacement: ", self.replacement)
+        print("genus_type: ", self.genus_type)
+
+        if ((not self.replacement) and (self.genus_type is None) ):
+            folderName = "no_rep_no_genus/"
+        elif((not self.replacement) and (self.genus_type is not None)):
             folderName = "no_rep_genus/"
-            if(not self.checkGenus(self.genus_type)):
+            if(not self.checkGenus()):
                 raise Exception('genus type does not exist. The genus type was: {}'.format(self.genus_type))
-        elif( (self.replacement) and (self.genus_type is None)): folderName = "rep_no_genus/"
+        elif((self.replacement) and (self.genus_type is None)):
+             folderName = "rep_no_genus/"
         else:
             folderName = "rep_genus/"
-            if(not self.checkGenus(self.genus_type)):
+            if(not self.checkGenus()):
                 raise Exception('genus type does not exist. The genus type was: {}'.format(self.genus_type))
 
 
@@ -191,7 +197,7 @@ if __name__ == '__main__':
     parser.add_argument('-g', '--genus_type',
                         help='Genus type of the Bacteria.', default=None)
     parser.add_argument('-r', '--replacement',
-                        help='Boolean for combinatorial with replacement.', default=False)
+                        help='Boolean for combinatorial with replacement.', default=False, type=int)
 
     if len(sys.argv) == 1:
         parser.print_help()
