@@ -89,17 +89,17 @@ class CCB:
         if(genus_type):
             all_linkers_genus =  all_linkers[all_linkers['Genus']==genus_type]
             unique_pairs = list(set(all_linkers_genus['Pairs']))
-            print("genus_all_unique_pairs: ", len(unique_pairs))
+            print("all_unique_pairs of substrates in genus " + genus_type + " :", len(unique_pairs))
 
             a1 = list(set(all_linkers_genus["A1"]))
             a2 = list(set(all_linkers_genus["A2"]))
             unique_mono = list(set(a1+a2))
             unique_mono.sort()
-            print("all_unique_mono: ", len(unique_mono))
+            print("all_unique_monomers: ", len(unique_mono))
 
         else:
             unique_pairs = list(set(all_linkers['Pairs']))
-            print("all_unique_pairs: ", len(unique_pairs))
+            print("all_unique_pairs of substrates across all genera: ", len(unique_pairs))
 
 
             a1 = list(set(all_linkers["A1"]))
@@ -107,7 +107,7 @@ class CCB:
 
             unique_mono = list(set(a1+a2))
             unique_mono.sort()
-            print("all_unique_mono: ", len(unique_mono))
+            print("all_unique_monomers: ", len(unique_mono))
 
         if(replacement):
             result = self.rSubset_w_rep(unique_mono, peptide_length)
@@ -124,7 +124,7 @@ class CCB:
         #print("Checking peptide validity done", len(vip_seqs))
 
         res_list = self.unziping2(vip_seqs)
-        print("Final list of valid peptide done", len(res_list))
+        print("Final list of valid Non-ribosomal peptides done", len(res_list))
 
         self.writeRes(res_list, genus_type, out_df_path, suffix)
 
@@ -181,6 +181,11 @@ class CCB:
         else:
             print ("Successfully created the directory %s " % new_output_path)
 
+        print()
+        print("##############################")
+        print("Peptide generation started:")
+        print("##############################")
+        print()
         self.getVipSeq(self.in_df_path, new_output_path, self.peptide_length, self.genus_type, self.replacement)
 
 
