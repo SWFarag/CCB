@@ -139,9 +139,21 @@ class CCB:
         df = pd.DataFrame.from_dict(dict_out)
         df.to_csv(fileName)
 
+    def checkGenus(self, genus):
+        isGenus = False
+        print("ich bin da")
+        all_linkers = pd.read_csv(self.in_df_path)
+        try:
+            genus_df = all_linkers[all_linkers['Genus']==self.genus_type]
+            isGenus = True
+        except e:
+            print("eshta" + e)
+        return isGenus
+
     def test_run(self):
         folderName = ""
         if(self.replacement is None): self.replacement = False
+        print("self.replacement: ", self.replacement)
         if ((not self.replacement) and (self.genus_type is None) ): folderName = "no_rep_no_genus/"
         elif((not self.replacement) and  (self.genus_type is not None)):
             folderName = "no_rep_genus/"
@@ -164,17 +176,6 @@ class CCB:
             print ("Successfully created the directory %s " % new_output_path)
 
         self.getVipSeq(self.in_df_path, new_output_path, self.peptide_length, self.genus_type, self.replacement)
-
-    def checkGenus(self, genus):
-        isGenus = False
-        print("ich bin da")
-        all_linkers = pd.read_csv(self.in_df_path)
-        try:
-            genus_df = all_linkers[all_linkers['Genus']==self.genus_type]
-            isGenus = True
-        except e:
-            print("eshta" + e)
-        return isGenus
 
 
 if __name__ == '__main__':
