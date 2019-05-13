@@ -167,6 +167,7 @@ class CCB:
 
     def checkGenus(self, genus):
         isGenus = False
+        print("ich bin da")
         all_linkers = pd.read_csv(self.in_df_path)
         try:
             genus_df = all_linkers[all_linkers['Genus']==self.genus_type]
