@@ -1,7 +1,7 @@
 # CCB
 NRP Comprehensive Combinatorial Biosynthesis (CCB)
 
-NRP-CCB is a tool that allow the generation of large libraries of valid non-ribosomal peptides (NRPs). An NRP is considered valid, if and only if, there is an existing IML for every pair of monomers within that generated peptide,
+NRP-CCB is a tool that allow the generation of large libraries of valid non-ribosomal peptides (NRPs). An NRP is considered valid, if and only if, there is an existing IML for every pair of monomers within that generated peptide.
 
 ## Installation
 This script uses Python 3.7.x. If you don't have Python, I would recommend downloading it from [Anaconda](https://www.continuum.io/downloads).
