@@ -23,7 +23,9 @@ Install the dependencies by entering:
 To run from the command-line, just do:
 
     $ python CCB_prd.py
+
 Example: Running tool with replacement and with a particular genus
+
     $ python CCB_prd.py -in path_to/IML_genus_db.csv -o path_to_output/CCB/ -l 3 -r 1 -g Bacillus
 
 
