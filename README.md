@@ -30,7 +30,7 @@ Example: Running tool with replacement and with a particular genus
 
 To list all the parameters needed from the command-line, just do:
 
-    $ python CCB.py
+    $ python CCB.py --help
 
 ## Questions and Comments
 
